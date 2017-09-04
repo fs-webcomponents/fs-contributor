@@ -1,0 +1,58 @@
+<link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../fs-client/fs-client.html">
+<link rel="import" href="../fs-behavior/fs-behavior.html">
+
+<!--
+FamilySearch Polymer element for displaying a contributor.
+
+Example:
+
+    <fs-contributor contibutor-id="PPP-PPPP"></fs-contributor>
+    
+@group FamilySearch Elements
+@element fs-contributor
+@demo demo/index.html
+-->
+<dom-module id="fs-contributor">
+  <template>
+    <fs-client name="{{clientName}}"></fs-client>
+    <div>[[text]]</div>
+  </template>
+  <script>
+    class FSContributor extends Polymer.mixinBehaviors(FSBehavior, Polymer.Element) {
+      
+      static get is() { return 'fs-contributor'; }
+      
+      static get properties() {
+        return {
+          contributorId: String,
+          contributorName: String,
+          text: {
+            type: String,
+            computed: 'computeText(contributorId, contributorName)'
+          }
+        };
+      }
+      
+      ready() {
+        super.ready();
+        if(this.contributorId && !this.contributorName) {
+          this.getClient().get(`/platform/users/agents/${this.contributorId}`, (error, response) => {
+            if(error) {
+              console.error(error);
+            } else if(response && response.data && response.data.agents && response.data.agents[0].accounts && response.data.agents[0].accounts[0]) {
+              this.contributorName = response.data.agents[0].accounts[0].accountName;
+            }
+          });
+        }
+      }
+      
+      computeText(contributorId, contributorName) {
+        return contributorName || contributorId;
+      }
+      
+    }
+    
+    customElements.define('fs-contributor', FSContributor);
+  </script>
+</dom-module>

@@ -1,0 +1,29 @@
+{
+  "name": "fs-contributor",
+  "authors": [
+    "Justin York"
+  ],
+  "version": "3.0.0",
+  "description": "FamilySearch Polymer element for displaying a contributor",
+  "keywords": [
+    "web-component",
+    "polymer",
+    "FamilySearch"
+  ],
+  "main": "fs-contributor.html",
+  "license": "MIT",
+  "homepage": "https://github.com/fs-webcomponents/fs-contributor/",
+  "ignore": [
+    "/.*",
+    "/test/"
+  ],
+  "dependencies": {
+    "polymer": "Polymer/polymer#^2.0.0",
+    "fs-client": "fs-webcomponents/fs-client#^3.0.0",
+    "fs-behavior": "fs-webcomponents/fs-behavior#^3.0.0"
+  },
+  "devDependencies": {
+    "iron-component-page": "PolymerElements/iron-component-page#^3.0.0",
+    "fs-signin": "fs-webcomponents/fs-signin#^3.0.0"
+  }
+}
