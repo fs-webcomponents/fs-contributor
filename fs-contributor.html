@@ -37,11 +37,20 @@ Example:
       ready() {
         super.ready();
         if(this.contributorId && !this.contributorName) {
+          
+          // Check for a chached value first
+          if(FSContributor.cache[this.contributorId]) {
+            this.contributorName = FSContributor.cache[this.contributorId];
+            return;
+          }
+          
+          // If it's not cached then load the contributor name from the API
           this.getClient().get(`/platform/users/agents/${this.contributorId}`, (error, response) => {
             if(error) {
               console.error(error);
             } else if(response && response.data && response.data.agents && response.data.agents[0].accounts && response.data.agents[0].accounts[0]) {
               this.contributorName = response.data.agents[0].accounts[0].accountName;
+              FSContributor.cache[this.contributorId] = this.contributorName;
             }
           });
         }
@@ -52,6 +61,8 @@ Example:
       }
       
     }
+    
+    FSContributor.cache = {};
     
     customElements.define('fs-contributor', FSContributor);
   </script>
