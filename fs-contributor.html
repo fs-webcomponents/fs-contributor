@@ -27,6 +27,11 @@ Example:
         return {
           contributorId: String,
           contributorName: String,
+          loading: {
+            type: Boolean,
+            value: false,
+            notify: true
+          },
           text: {
             type: String,
             computed: 'computeText(contributorId, contributorName)'
@@ -45,7 +50,9 @@ Example:
           }
           
           // If it's not cached then load the contributor name from the API
+          this.loading = true;
           this.getClient().get(`/platform/users/agents/${this.contributorId}`, (error, response) => {
+            this.loading = false;
             if(error) {
               console.error(error);
             } else if(response && response.data && response.data.agents && response.data.agents[0].accounts && response.data.agents[0].accounts[0]) {
