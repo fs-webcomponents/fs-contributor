@@ -3,7 +3,7 @@
   "authors": [
     "Justin York"
   ],
-  "version": "3.0.0",
+  "version": "3.1.0",
   "description": "FamilySearch Polymer element for displaying a contributor",
   "keywords": [
     "web-component",
@@ -19,7 +19,7 @@
   ],
   "dependencies": {
     "polymer": "Polymer/polymer#^2.0.0",
-    "fs-request": "fs-webcomponents/fs-request"
+    "fs-request": "fs-webcomponents/fs-request#^3.0.0"
   },
   "devDependencies": {
     "iron-component-page": "PolymerElements/iron-component-page#^3.0.0",
