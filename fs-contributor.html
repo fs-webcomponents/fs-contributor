@@ -67,7 +67,6 @@ Example:
       }
       
       _handleResponse(e) {
-        console.dir('_handleResponse', e);
         if(e && e.detail && e.detail.response) {
           const response = e.detail.response;
           if(response && response.data && response.data.agents && response.data.agents[0].accounts && response.data.agents[0].accounts[0]) {
