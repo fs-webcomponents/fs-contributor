@@ -1,13 +1,12 @@
 <link rel="import" href="../polymer/polymer.html">
-<link rel="import" href="../fs-client/fs-client.html">
-<link rel="import" href="../fs-behavior/fs-behavior.html">
+<link rel="import" href="../fs-request/fs-request.html">
 
 <!--
 FamilySearch Polymer element for displaying a contributor.
 
 Example:
 
-    <fs-contributor contibutor-id="PPP-PPPP"></fs-contributor>
+    <fs-contributor contributor-id="PPP-PPPP"></fs-contributor>
     
 @group FamilySearch Elements
 @element fs-contributor
@@ -15,7 +14,11 @@ Example:
 -->
 <dom-module id="fs-contributor">
   <template>
-    <fs-client name="{{clientName}}"></fs-client>
+    <fs-request id="request"
+      client-name="{{clientName}}" 
+      url="[[_requestUrl(contributorId)]]" 
+      loading="{{loading}}" 
+      on-response="_handleResponse"></fs-request>
     <div>[[text]]</div>
   </template>
   <script>
@@ -41,6 +44,7 @@ Example:
       
       ready() {
         super.ready();
+        
         if(this.contributorId && !this.contributorName) {
           
           // Check for a chached value first
@@ -50,21 +54,27 @@ Example:
           }
           
           // If it's not cached then load the contributor name from the API
-          this.loading = true;
-          this.getClient().get(`/platform/users/agents/${this.contributorId}`, (error, response) => {
-            this.loading = false;
-            if(error) {
-              console.error(error);
-            } else if(response && response.data && response.data.agents && response.data.agents[0].accounts && response.data.agents[0].accounts[0]) {
-              this.contributorName = response.data.agents[0].accounts[0].accountName;
-              FSContributor.cache[this.contributorId] = this.contributorName;
-            }
-          });
+          this.$.request.generateRequest();
         }
       }
       
       computeText(contributorId, contributorName) {
         return contributorName || contributorId;
+      }
+      
+      _requestUrl(contributorId) {
+        return `/platform/users/agents/${this.contributorId}`;
+      }
+      
+      _handleResponse(e) {
+        console.dir('_handleResponse', e);
+        if(e && e.detail && e.detail.response) {
+          const response = e.detail.response;
+          if(response && response.data && response.data.agents && response.data.agents[0].accounts && response.data.agents[0].accounts[0]) {
+            this.contributorName = response.data.agents[0].accounts[0].accountName;
+            FSContributor.cache[this.contributorId] = this.contributorName;
+          }
+        }
       }
       
     }

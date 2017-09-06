@@ -42,7 +42,7 @@
         server = sinon.fakeServer.create();
         server.respondWith(
           'GET',
-          /\/platform\/users\/agents/,
+          /\/platform\/users\/agents\/PPPP-PPP/,
           [
             200,
             { 'Content-Type': 'application/json' },
@@ -57,8 +57,8 @@
             setTimeout(function(){
               expect(element.contributorName).to.equal('api-user-2003132863');
               done();
-            }, 200);
-          }, 200);
+            }, 400);
+          }, 400);
         });
 
         test('contributor name is cached', function() {
