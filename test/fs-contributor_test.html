@@ -39,7 +39,9 @@
           } ]
         }`;
         let server;
-        server = sinon.fakeServer.create();
+        server = sinon.fakeServer.create({
+          respondImmediately: true
+        });
         server.respondWith(
           'GET',
           /\/platform\/users\/agents\/PPPP-PPP/,
@@ -52,13 +54,10 @@
         
         test('loads the contributor name', function(done) {
           const element = fixture('basic');
-          setTimeout(function(){
-            server.respond();
-            setTimeout(function(){
-              expect(element.contributorName).to.equal('api-user-2003132863');
-              done();
-            }, 400);
-          }, 400);
+          element.addEventListener('contributor-name-changed', function(){
+            expect(element.contributorName).to.equal('api-user-2003132863');
+            done();
+          });
         });
 
         test('contributor name is cached', function() {

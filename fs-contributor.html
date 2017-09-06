@@ -29,7 +29,10 @@ Example:
       static get properties() {
         return {
           contributorId: String,
-          contributorName: String,
+          contributorName: {
+            type: String,
+            notify: true
+          },
           loading: {
             type: Boolean,
             value: false,
