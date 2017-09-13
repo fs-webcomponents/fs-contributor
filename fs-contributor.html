@@ -1,4 +1,5 @@
-<link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../polymer/polymer-element.html">
+<link rel="import" href="../fs-api-aware/fs-api-aware.html">
 <link rel="import" href="../fs-request/fs-request.html">
 
 <!--
@@ -22,7 +23,8 @@ Example:
     <div>[[text]]</div>
   </template>
   <script>
-    class FSContributor extends Polymer.mixinBehaviors(FSBehavior, Polymer.Element) {
+    
+    class FSContributor extends FSApiAwareMixin(Polymer.Element) {
       
       static get is() { return 'fs-contributor'; }
       
