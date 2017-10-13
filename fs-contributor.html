@@ -18,7 +18,8 @@ Example:
     <fs-request id="request"
       client-name="{{clientName}}" 
       url="[[_requestUrl(contributorId)]]" 
-      loading="{{loading}}" 
+      loading="{{loading}}"
+      require-authentication
       on-response="_handleResponse"></fs-request>
     <div>[[text]]</div>
   </template>
