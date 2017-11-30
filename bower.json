@@ -1,9 +1,6 @@
 {
   "name": "fs-contributor",
-  "authors": [
-    "Justin York"
-  ],
-  "version": "4.0.1",
+  "version": "4.0.2",
   "description": "FamilySearch Polymer element for displaying a contributor",
   "keywords": [
     "web-component",
