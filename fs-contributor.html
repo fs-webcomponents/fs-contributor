@@ -16,7 +16,7 @@ Example:
 <dom-module id="fs-contributor">
   <template>
     <fs-request id="request"
-      client-name="{{clientName}}" 
+      client-name="[[clientName]]"
       url="[[_requestUrl(contributorId)]]" 
       loading="{{loading}}"
       require-authentication
